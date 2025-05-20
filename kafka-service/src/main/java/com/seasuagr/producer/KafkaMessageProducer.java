@@ -8,6 +8,10 @@ import org.apache.kafka.common.serialization.StringSerializer;
 import java.util.Properties;
 
 public class KafkaMessageProducer {
+    public static void main(String[] args) {
+        String msg = "";
+        sendMessage("", msg);
+    }
 
     public static void sendMessage(String topic, String message) {
         KafkaProducer<String, String> producer = null;

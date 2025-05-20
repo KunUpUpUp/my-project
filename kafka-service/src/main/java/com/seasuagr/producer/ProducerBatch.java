@@ -12,8 +12,9 @@ public class ProducerBatch {
         while (true) {
             if (i < 100000) {
                 int value = 0;
-                if (i % 5 == 0)
+                if (i % 5 == 0) {
                     value = random.nextInt(10);
+                }
                 int count = 0;
                 String endpoint = "10.97.45." + i;
                 String serviceName = "newstore_api", namespace = "newstore_name";
