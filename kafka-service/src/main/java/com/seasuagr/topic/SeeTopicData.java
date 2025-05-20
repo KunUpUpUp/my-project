@@ -15,7 +15,7 @@ public class SeeTopicData {
         Properties properties = new Properties();
         properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         properties.put(ConsumerConfig.GROUP_ID_CONFIG, "123");
-        properties.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
+        properties.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
         properties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
 
@@ -23,7 +23,7 @@ public class SeeTopicData {
         KafkaConsumer<String, String> consumer = new KafkaConsumer<>(properties);
 
         // 订阅主题
-        consumer.subscribe(Collections.singletonList("pod_event"));
+        consumer.subscribe(Collections.singletonList("middle_agent_metrics"));
 
         // 持续拉取数据
 

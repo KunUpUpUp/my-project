@@ -9,8 +9,22 @@ import java.util.Properties;
 
 public class KafkaMessageProducer {
     public static void main(String[] args) {
-        String msg = "";
-        sendMessage("", msg);
+        String msg = "{\n" +
+                "    \"Value\": 4194304,\n" +
+                "    \"area\": \"cn\",\n" +
+                "    \"clusterName\": \"clouddbm8\",\n" +
+                "    \"counterType\": \"Gauge\",\n" +
+                "    \"endpoint\": \"10.97.166.61\",\n" +
+                "    \"idc\": \"xy\",\n" +
+                "    \"instanceIp\": \"10.97.166.61\",\n" +
+                "    \"metricType\": \"mysql\",\n" +
+                "    \"monitorType\": \"global_variables\",\n" +
+                "    \"name\": \"mysql_global_variables_sort_buffer_size\",\n" +
+                "    \"roomid\": \"\",\n" +
+                "    \"serviceName\": \"cloud_partdb_mysql\",\n" +
+                "    \"timestamp\": 1747722607000\n" +
+                "}";
+        sendMessage("middle_agent_metrics", msg);
     }
 
     public static void sendMessage(String topic, String message) {
