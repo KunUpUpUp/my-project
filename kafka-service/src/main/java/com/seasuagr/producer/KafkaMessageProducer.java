@@ -9,7 +9,7 @@ import java.util.Properties;
 
 public class KafkaMessageProducer {
     public static void main(String[] args) {
-        String msg = "{\n" +
+        String mysql = "{\n" +
                 "    \"Value\": 4194304,\n" +
                 "    \"area\": \"cn\",\n" +
                 "    \"clusterName\": \"clouddbm8\",\n" +
@@ -24,7 +24,39 @@ public class KafkaMessageProducer {
                 "    \"serviceName\": \"cloud_partdb_mysql\",\n" +
                 "    \"timestamp\": 1747722607000\n" +
                 "}";
-        sendMessage("middle_agent_metrics", msg);
+        String redis = "{\n" +
+                "    \"Value\": 0,\n" +
+                "    \"area\": \"cn\",\n" +
+                "    \"counterType\": \"Gauge\",\n" +
+                "    \"endpoint\": \"10.215.13.95\",\n" +
+                "    \"idc\": \"xyidc\",\n" +
+                "    \"instanceIp\": \"10.215.13.95\",\n" +
+                "    \"metricType\": \"redis\",\n" +
+                "    \"monitorType\": \"aof_rewrite_in_progress\",\n" +
+                "    \"name\": \"redis_aof_rewrite_in_progress\",\n" +
+                "    \"roomid\": \"\",\n" +
+                "    \"serviceName\": \"valueadded_redis\",\n" +
+                "    \"timestamp\": 1747986660000\n" +
+                "}";
+        String kafka = "{\n" +
+                "    \"RateUnit\": \"SECONDS\",\n" +
+                "    \"EventType\": \"bytes\",\n" +
+                "    \"Count\": 16526320334,\n" +
+                "    \"serviceName\": \"rtc_common_kafka\",\n" +
+                "    \"type\": \"BrokerTopicMetrics\",\n" +
+                "    \"FiveMinuteRate\": 116.29131242848267,\n" +
+                "    \"MeanRate\": 190.8541086185517,\n" +
+                "    \"metricType\": \"kafka\",\n" +
+                "    \"monitorType\": \"kafka.server\",\n" +
+                "    \"endpoint\": \"rtc-common2.sq.kafka:22222\",\n" +
+                "    \"OneMinuteRate\": 140.7057362788054,\n" +
+                "    \"name\": \"BytesOutPerSec\",\n" +
+                "    \"topic\": \"cloudstorage_netdisk_conference_record_topic\",\n" +
+                "    \"FifteenMinuteRate\": 124.85242221545927,\n" +
+                "    \"timestamp\": 1747922280000,\n" +
+                "    \"instanceIp\": \"10.215.18.24\"\n" +
+                "}";
+        sendMessage("middle_agent_metrics", redis);
     }
 
     public static void sendMessage(String topic, String message) {
