@@ -9,6 +9,13 @@ import java.util.Properties;
 
 public class KafkaMessageProducer {
     public static void main(String[] args) {
+//        send("mysql");
+        send("redis");
+//        send("kafka");
+    }
+
+    private static void send(String type) {
+        long time = System.currentTimeMillis();
         String mysql = "{\n" +
                 "    \"Value\": 4194304,\n" +
                 "    \"area\": \"cn\",\n" +
@@ -22,7 +29,7 @@ public class KafkaMessageProducer {
                 "    \"name\": \"mysql_global_variables_sort_buffer_size\",\n" +
                 "    \"roomid\": \"\",\n" +
                 "    \"serviceName\": \"cloud_partdb_mysql\",\n" +
-                "    \"timestamp\": 1747722607000\n" +
+                "    \"timestamp\":" + time + "\n" +
                 "}";
         String redis = "{\n" +
                 "    \"Value\": 0,\n" +
@@ -36,7 +43,7 @@ public class KafkaMessageProducer {
                 "    \"name\": \"redis_aof_rewrite_in_progress\",\n" +
                 "    \"roomid\": \"\",\n" +
                 "    \"serviceName\": \"valueadded_redis\",\n" +
-                "    \"timestamp\": 1747986660000\n" +
+                "    \"timestamp\":" + time + "\n" +
                 "}";
         String kafka = "{\n" +
                 "    \"RateUnit\": \"SECONDS\",\n" +
@@ -53,10 +60,20 @@ public class KafkaMessageProducer {
                 "    \"name\": \"BytesOutPerSec\",\n" +
                 "    \"topic\": \"cloudstorage_netdisk_conference_record_topic\",\n" +
                 "    \"FifteenMinuteRate\": 124.85242221545927,\n" +
-                "    \"timestamp\": 1747922280000,\n" +
-                "    \"instanceIp\": \"10.215.18.24\"\n" +
+                "    \"instanceIp\": \"10.215.18.24,\n" +
+                "    \"timestamp\":" + time + "\n" +
                 "}";
-        sendMessage("middle_agent_metrics", redis);
+        switch (type) {
+            case "mysql":
+                sendMessage("middle_agent_metrics", mysql);
+                break;
+            case "redis":
+                sendMessage("middle_agent_metrics", redis);
+                break;
+            case "kafka":
+                sendMessage("middle_agent_metrics", kafka);
+                break;
+        }
     }
 
     public static void sendMessage(String topic, String message) {
