@@ -9,9 +9,9 @@ import java.util.Properties;
 
 public class KafkaMessageProducer {
     public static void main(String[] args) {
-//        send("mysql");
+        send("mysql");
         send("redis");
-//        send("kafka");
+        send("kafka");
     }
 
     private static void send(String type) {
@@ -35,9 +35,9 @@ public class KafkaMessageProducer {
                 "    \"Value\": 0,\n" +
                 "    \"area\": \"cn\",\n" +
                 "    \"counterType\": \"Gauge\",\n" +
-                "    \"endpoint\": \"10.215.13.95\",\n" +
+                "    \"endpoint\": \"10.215.12.152\",\n" +
                 "    \"idc\": \"xyidc\",\n" +
-                "    \"instanceIp\": \"10.215.13.95\",\n" +
+                "    \"instanceIp\": \"10.215.12.152\",\n" +
                 "    \"metricType\": \"redis\",\n" +
                 "    \"monitorType\": \"aof_rewrite_in_progress\",\n" +
                 "    \"name\": \"redis_aof_rewrite_in_progress\",\n" +
@@ -60,7 +60,7 @@ public class KafkaMessageProducer {
                 "    \"name\": \"BytesOutPerSec\",\n" +
                 "    \"topic\": \"cloudstorage_netdisk_conference_record_topic\",\n" +
                 "    \"FifteenMinuteRate\": 124.85242221545927,\n" +
-                "    \"instanceIp\": \"10.215.18.24,\n" +
+                "    \"instanceIp\": \"10.202.12.48\",\n" +
                 "    \"timestamp\":" + time + "\n" +
                 "}";
         switch (type) {
