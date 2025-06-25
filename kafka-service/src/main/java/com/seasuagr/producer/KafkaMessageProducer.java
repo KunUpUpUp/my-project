@@ -10,8 +10,15 @@ import java.util.Properties;
 public class KafkaMessageProducer {
     public static void main(String[] args) {
         send("mysql");
-        send("redis");
-        send("kafka");
+//        send("redis");
+//        while (true) {
+//            send("kafka");
+//            try {
+//                Thread.sleep(25000L);
+//            } catch (InterruptedException e) {
+//                throw new RuntimeException(e);
+//            }
+//        }
     }
 
     private static void send(String type) {
@@ -21,9 +28,9 @@ public class KafkaMessageProducer {
                 "    \"area\": \"cn\",\n" +
                 "    \"clusterName\": \"clouddbm8\",\n" +
                 "    \"counterType\": \"Gauge\",\n" +
-                "    \"endpoint\": \"10.97.166.61\",\n" +
+                "    \"endpoint\": \"10.215.194.228\",\n" +
                 "    \"idc\": \"xy\",\n" +
-                "    \"instanceIp\": \"10.97.166.61\",\n" +
+                "    \"instanceIp\": \"10.220.20.34\",\n" +
                 "    \"metricType\": \"mysql\",\n" +
                 "    \"monitorType\": \"global_variables\",\n" +
                 "    \"name\": \"mysql_global_variables_sort_buffer_size\",\n" +
@@ -32,36 +39,29 @@ public class KafkaMessageProducer {
                 "    \"timestamp\":" + time + "\n" +
                 "}";
         String redis = "{\n" +
-                "    \"Value\": 0,\n" +
+                "    \"Value\": 5508107600,\n" +
                 "    \"area\": \"cn\",\n" +
                 "    \"counterType\": \"Gauge\",\n" +
-                "    \"endpoint\": \"10.215.12.152\",\n" +
+                "    \"endpoint\": \"10.220.50.178\",\n" +
                 "    \"idc\": \"xyidc\",\n" +
-                "    \"instanceIp\": \"10.215.12.152\",\n" +
+                "    \"instanceIp\": \"10.220.50.178\",\n" +
                 "    \"metricType\": \"redis\",\n" +
-                "    \"monitorType\": \"aof_rewrite_in_progress\",\n" +
-                "    \"name\": \"redis_aof_rewrite_in_progress\",\n" +
+                "    \"monitorType\": \"memory_used_peak_bytes\",\n" +
+                "    \"name\": \"redis_memory_used_peak_bytes\",\n" +
                 "    \"roomid\": \"\",\n" +
-                "    \"serviceName\": \"valueadded_redis\",\n" +
+                "    \"serviceName\": \"device_basic_redis\",\n" +
                 "    \"timestamp\":" + time + "\n" +
                 "}";
         String kafka = "{\n" +
-                "    \"RateUnit\": \"SECONDS\",\n" +
-                "    \"EventType\": \"bytes\",\n" +
-                "    \"Count\": 16526320334,\n" +
-                "    \"serviceName\": \"rtc_common_kafka\",\n" +
-                "    \"type\": \"BrokerTopicMetrics\",\n" +
-                "    \"FiveMinuteRate\": 116.29131242848267,\n" +
-                "    \"MeanRate\": 190.8541086185517,\n" +
                 "    \"metricType\": \"kafka\",\n" +
                 "    \"monitorType\": \"kafka.server\",\n" +
-                "    \"endpoint\": \"rtc-common2.sq.kafka:22222\",\n" +
-                "    \"OneMinuteRate\": 140.7057362788054,\n" +
-                "    \"name\": \"BytesOutPerSec\",\n" +
-                "    \"topic\": \"cloudstorage_netdisk_conference_record_topic\",\n" +
-                "    \"FifteenMinuteRate\": 124.85242221545927,\n" +
-                "    \"instanceIp\": \"10.202.12.48\",\n" +
-                "    \"timestamp\":" + time + "\n" +
+                "    \"endpoint\": \"10.219.22.27:22222\",\n" +
+                "    \"name\": \"BrokerState\",\n" +
+                "    \"Value\": 5,\n" +
+                "    \"serviceName\": \"perf_kafka\",\n" +
+                "    \"type\": \"KafkaServer\",\n" +
+                "    \"timestamp\":" + time + ",\n" +
+                "    \"instanceIp\": \"10.219.22.27\"\n" +
                 "}";
         switch (type) {
             case "mysql":
@@ -90,8 +90,8 @@ public class KafkaMessageProducer {
             producer = new KafkaProducer<>(props);
 
             // 发送消息
-            String key = "pod_event";
-            ProducerRecord<String, String> record = new ProducerRecord<>(topic, key, message);
+//            String key = "pod_event";
+            ProducerRecord<String, String> record = new ProducerRecord<>(topic, null, message);
             producer.send(record);
         } finally {
             // 关闭生产者
