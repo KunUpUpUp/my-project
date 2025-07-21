@@ -5,6 +5,7 @@ import java.io.*;
 public class DataInputOutputStreamDemo {
     public static void main(String[] args) throws IOException {
         ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("D:\\test.txt"));
+//        BufferedOutputStream bos = new BufferedOutputStream();
 
         DataOutputStream os = new DataOutputStream(new OutputStream() {
             @Override
