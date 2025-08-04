@@ -1,3 +1,5 @@
+package test;
+
 import algorithm.datastruct.HuffmanNode;
 
 import java.util.Map;

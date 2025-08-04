@@ -1,3 +1,5 @@
+package test;
+
 import algorithm.datastruct.MyLinkedList;
 
 public class LinkedListTest {
