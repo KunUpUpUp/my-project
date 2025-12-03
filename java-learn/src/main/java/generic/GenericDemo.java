@@ -18,13 +18,25 @@ public class GenericDemo {
         list.add(1);
         list.add(2);
         list.add(3);
-        System.out.println(B.checkListEleIsEmpty(list));
+        System.out.println(checkListEleIsEmpty(list));
 
         List<String> list1 = new ArrayList<>();
         list1.add("1");
         list1.add("2");
         list1.add("3");
-        System.out.println(B.checkListEleIsEmpty(list1));
+        System.out.println(checkListEleIsEmpty(list1));
+
+        // 必须是B的子类才能使用
+//        checkListBEleIsEmpty(list);
+        // 必须是C的父类才能使用
+//        checkListCEleIsEmpty(list);
+
+        List<Object> list2 = new ArrayList<>();
+        list2.add(1);
+        list2.add(2);
+        list2.add(3);
+        // 可以使用，因为Object是所有类的父类
+        checkListCEleIsEmpty(list2);
     }
 
 
@@ -45,15 +57,6 @@ public class GenericDemo {
         public <G> G getG(G t) {
             return t;
         }
-
-        public static boolean checkListEleIsEmpty(List<?> list){
-            for (Object o : list) {
-                if (o != null) {
-                    return true;
-                }
-            }
-            return false;
-        }
     }
 
     static class C{
@@ -64,5 +67,32 @@ public class GenericDemo {
             this.a = a;
             System.out.println(a);
         }
+    }
+
+    public static boolean checkListEleIsEmpty(List<?> list){
+        for (Object o : list) {
+            if (o != null) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean checkListBEleIsEmpty(List<? extends B> list){
+        for (Object o : list) {
+            if (o != null) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean checkListCEleIsEmpty(List<? super C> list){
+        for (Object o : list) {
+            if (o != null) {
+                return true;
+            }
+        }
+        return false;
     }
 }
