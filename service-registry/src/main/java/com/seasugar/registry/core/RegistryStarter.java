@@ -33,6 +33,7 @@ public class RegistryStarter {
             workerGroup.shutdownGracefully();
         }));
         ChannelFuture channelFuture = bootstrap.bind(port).sync();
+        System.out.println("start up success");
         channelFuture.channel().closeFuture().sync();
     }
 }

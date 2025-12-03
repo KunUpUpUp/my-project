@@ -12,4 +12,14 @@ public class TcpNettyServerHandler extends SimpleChannelInboundHandler {
         TcpMsg tcpMsg = (TcpMsg) msg;
         System.out.println(tcpMsg);
     }
+
+    @Override
+    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        System.out.println(ctx.channel().remoteAddress() + " 连接成功");
+    }
+
+    @Override
+    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+        System.out.println(ctx.channel().remoteAddress() + " 连接断开");
+    }
 }
