@@ -34,8 +34,6 @@ public class NIOServer {
             // 对channel进行一一处理
             for (SocketChannel channel : channels) {
                 while (true) {
-                    // 应该为每个channel都分配一个buffer，不然存在线程安全问题
-//                    buffer.put(new byte[3]);
                     int len = channel.read(buffer);
                     // 只要len不为-1，就一直在while循环中，所以buffer无空间时（返回len为0）也不会跳出while
                     if (len == -1) break;

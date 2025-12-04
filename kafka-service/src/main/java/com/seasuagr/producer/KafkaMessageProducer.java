@@ -9,8 +9,9 @@ import java.util.Properties;
 
 public class KafkaMessageProducer {
     public static void main(String[] args) {
-        send("mysql");
+//        send("mysql");
 //        send("redis");
+        send("kafka");
 //        while (true) {
 //            send("kafka");
 //            try {

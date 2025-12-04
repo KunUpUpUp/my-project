@@ -24,7 +24,7 @@ public class KafkaMessageConsumer {
         KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
 
         // 订阅 topic
-        consumer.subscribe(Collections.singletonList("pod_event"));
+        consumer.subscribe(Collections.singletonList("middle_agent_metrics"));
 
         // 轮询消息
         while (true) {
