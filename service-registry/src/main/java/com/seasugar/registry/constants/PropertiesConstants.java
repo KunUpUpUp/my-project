@@ -1,0 +1,5 @@
+package com.seasugar.registry.constants;
+
+public class PropertiesConstants {
+    public final static String LOG_DIR = "log.dir";
+}

@@ -11,7 +11,7 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 public class RegistryStarter {
-    private int port = 8080;
+    private static final int PORT = 8080;
 
     public void startUp() throws InterruptedException {
         // 处理网络io的accept事件
@@ -32,7 +32,9 @@ public class RegistryStarter {
             bossGroup.shutdownGracefully();
             workerGroup.shutdownGracefully();
         }));
-        ChannelFuture channelFuture = bootstrap.bind(port).sync();
+        ChannelFuture channelFuture = bootstrap.bind(PORT).sync();
+        // 启动心跳线程
+        new Thread(new InvaildNodeRemoveTask()).start();
         System.out.println("start up success");
         channelFuture.channel().closeFuture().sync();
     }

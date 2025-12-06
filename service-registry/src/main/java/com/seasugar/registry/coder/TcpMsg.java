@@ -2,7 +2,7 @@ package com.seasugar.registry.coder;
 
 public class TcpMsg {
     private Byte magic;
-    private Integer code;
+    private Byte code;
     private Integer length;
     private byte[] body;
 
@@ -14,16 +14,16 @@ public class TcpMsg {
         this.magic = magic;
     }
 
-    public Integer getCode() {
-        return code;
-    }
-
-    public void setCode(Integer code) {
+    public void setCode(Byte code) {
         this.code = code;
     }
 
     public Integer getLength() {
         return length;
+    }
+
+    public Byte getCode() {
+        return code;
     }
 
     public void setLength(Integer length) {
@@ -35,6 +35,16 @@ public class TcpMsg {
     }
 
     public void setBody(byte[] body) {
+        this.body = body;
+    }
+
+    public TcpMsg() {
+    }
+
+    public TcpMsg(Byte magic, Byte code, Integer length, byte[] body) {
+        this.magic = magic;
+        this.code = code;
+        this.length = length;
         this.body = body;
     }
 }

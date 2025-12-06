@@ -9,7 +9,7 @@ public class TcpMsgEncoder extends MessageToByteEncoder{
     protected void encode(ChannelHandlerContext channelHandlerContext, Object msg, ByteBuf out) throws Exception {
         TcpMsg tcpMsg = (TcpMsg) msg;
         out.writeByte(tcpMsg.getMagic());
-        out.writeInt(tcpMsg.getCode());
+        out.writeByte(tcpMsg.getCode());
         out.writeInt(tcpMsg.getLength());
         out.writeBytes(tcpMsg.getBody());
     }
