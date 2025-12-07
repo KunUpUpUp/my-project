@@ -2,10 +2,13 @@ package com.seasugar.registry.handler;
 
 import com.alibaba.fastjson2.JSON;
 import com.seasugar.registry.coder.TcpMsg;
-import com.seasugar.registry.constants.RegistryConstants;
+import com.seasugar.registry.enums.EventEnum;
+import com.seasugar.registry.event.EventBus;
+import com.seasugar.registry.event.model.Event;
+import com.seasugar.registry.event.model.HeartBeatEvent;
+import com.seasugar.registry.event.model.RegisterEvent;
+import com.seasugar.registry.event.model.UnRegisterEvent;
 import com.seasugar.registry.ioc.CommonCache;
-import com.seasugar.registry.model.HeartBeat;
-import com.seasugar.registry.utils.AssertUtils;
 import io.netty.channel.*;
 
 import java.util.Objects;
@@ -30,9 +33,14 @@ public class TcpNettyServerHandler extends SimpleChannelInboundHandler<TcpMsg> {
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, TcpMsg tcpMsg) {
         Byte code = tcpMsg.getCode();
-        if (Objects.equals(code, RegistryConstants.HEART_BEAT)) {
-            HeartBeat heartBeat = JSON.parseObject(tcpMsg.getBody(), HeartBeat.class);
-            CommonCache.NODE_LIST.put(heartBeat.getId(), heartBeat);
+        Event event = null;
+        if (Objects.equals(code, EventEnum.HEART_BEAT.getCode())) {
+            event = JSON.parseObject(tcpMsg.getBody(), HeartBeatEvent.class);
+        } else if (Objects.equals(code, EventEnum.REGISTER.getCode())) {
+            event = JSON.parseObject(tcpMsg.getBody(), RegisterEvent.class);
+        } else if (Objects.equals(code, EventEnum.UNREGISTER.getCode())) {
+            event = JSON.parseObject(tcpMsg.getBody(), UnRegisterEvent.class);
         }
+        EventBus.publish(event);
     }
 }

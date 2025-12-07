@@ -1,7 +1,9 @@
-package com.seasugar.registry.core;
+package com.seasugar.registry;
 
 import com.seasugar.registry.coder.TcpMsgDecoder;
 import com.seasugar.registry.coder.TcpMsgEncoder;
+import com.seasugar.registry.core.InvaildNodeRemoveTask;
+import com.seasugar.registry.event.EventBus;
 import com.seasugar.registry.handler.TcpNettyServerHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
@@ -13,7 +15,17 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 public class RegistryStarter {
     private static final int PORT = 8080;
 
-    public void startUp() throws InterruptedException {
+    public static void main(String[] args) {
+        synchronized (RegistryStarter.class) {
+            try {
+                startUp();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    private static void startUp() throws InterruptedException {
         // 处理网络io的accept事件
         NioEventLoopGroup bossGroup = new NioEventLoopGroup();
         NioEventLoopGroup workerGroup = new NioEventLoopGroup();
@@ -33,6 +45,8 @@ public class RegistryStarter {
             workerGroup.shutdownGracefully();
         }));
         ChannelFuture channelFuture = bootstrap.bind(PORT).sync();
+        // 启动事件总线
+        new EventBus().init();
         // 启动心跳线程
         new Thread(new InvaildNodeRemoveTask()).start();
         System.out.println("start up success");

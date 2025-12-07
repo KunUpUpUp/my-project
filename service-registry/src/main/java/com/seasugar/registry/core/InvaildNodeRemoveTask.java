@@ -2,7 +2,7 @@ package com.seasugar.registry.core;
 
 import com.seasugar.registry.constants.PropertiesConstants;
 import com.seasugar.registry.ioc.CommonCache;
-import com.seasugar.registry.model.HeartBeat;
+import com.seasugar.registry.model.ServiceInstance;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -13,6 +13,7 @@ public class InvaildNodeRemoveTask implements Runnable {
     // 心跳检测接口
     @Override
     public void run() {
+        long heartInterval = Long.parseLong(CommonCache.PROP.get(PropertiesConstants.HEARTBEAT_INTERVAL)) * 1000;
         // TODO 如果连接线程数过多，O(n)的时间复杂度会不会有问题
         // Kafka做法：时间轮处理心跳
         while (true) {
@@ -23,10 +24,10 @@ public class InvaildNodeRemoveTask implements Runnable {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            Iterator<Map.Entry<String, HeartBeat>> nodeList = CommonCache.NODE_LIST.entrySet().iterator();
+            Iterator<Map.Entry<String, ServiceInstance>> nodeList = CommonCache.NODE_LIST.entrySet().iterator();
             while (nodeList.hasNext()) {
-                Map.Entry<String, HeartBeat> node = nodeList.next();
-                if ((System.currentTimeMillis() - node.getValue().getLastHeartBeatTime()) > Long.parseLong(CommonCache.PROP.get(PropertiesConstants.HEARTBEAT_INTERVAL)) * 1000) {
+                Map.Entry<String, ServiceInstance> node = nodeList.next();
+                if ((System.currentTimeMillis() - node.getValue().getLastHeartBeatTime()) > heartInterval) {
                     // 掉线了
                     nodeList.remove();
                     System.out.println(node.getKey() + "被剔除");

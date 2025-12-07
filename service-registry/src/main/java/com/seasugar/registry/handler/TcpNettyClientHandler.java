@@ -3,8 +3,10 @@ package com.seasugar.registry.handler;
 import com.alibaba.fastjson2.JSON;
 import com.seasugar.registry.constants.PropertiesConstants;
 import com.seasugar.registry.constants.RegistryConstants;
+import com.seasugar.registry.enums.EventEnum;
+import com.seasugar.registry.event.model.Event;
+import com.seasugar.registry.event.model.HeartBeatEvent;
 import com.seasugar.registry.ioc.CommonCache;
-import com.seasugar.registry.model.HeartBeat;
 import io.netty.channel.*;
 import com.seasugar.registry.coder.TcpMsg;
 
@@ -18,14 +20,14 @@ public class TcpNettyClientHandler extends SimpleChannelInboundHandler<TcpMsg> {
         System.out.println(ctx.channel().remoteAddress() + "已连接");
         // 不要在这种方法中做耗时操作，另起线程处理
         new Thread(() -> {
-            HeartBeat heartBeat = new HeartBeat();
+            HeartBeatEvent heartBeat = new HeartBeatEvent();
             String ipPort = ctx.channel().localAddress().toString().split("/")[1];
             heartBeat.setId(ipPort);
             while (true) {
                 try {
-                    heartBeat.setLastHeartBeatTime(System.currentTimeMillis());
+                    heartBeat.setTimeStamp(System.currentTimeMillis());
                     byte[] msgByte = JSON.toJSONBytes(heartBeat);
-                    TcpMsg msg = new TcpMsg(RegistryConstants.MAGIC, RegistryConstants.HEART_BEAT, msgByte.length, msgByte);
+                    TcpMsg msg = new TcpMsg(RegistryConstants.MAGIC, EventEnum.HEART_BEAT.getCode(), msgByte.length, msgByte);
                     ctx.channel().writeAndFlush(msg);
                     Thread.sleep(3000);
                 } catch (Exception e) {
