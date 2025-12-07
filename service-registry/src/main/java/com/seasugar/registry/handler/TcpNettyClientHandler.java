@@ -10,17 +10,17 @@ import com.seasugar.registry.coder.TcpMsg;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.util.UUID;
 
 @ChannelHandler.Sharable
 public class TcpNettyClientHandler extends SimpleChannelInboundHandler<TcpMsg> {
     @Override
-    public void channelActive(ChannelHandlerContext ctx) throws InterruptedException {
+    public void channelActive(ChannelHandlerContext ctx) {
         System.out.println(ctx.channel().remoteAddress() + "已连接");
         // 不要在这种方法中做耗时操作，另起线程处理
         new Thread(() -> {
             HeartBeat heartBeat = new HeartBeat();
-            heartBeat.setId(UUID.randomUUID().toString());
+            String ipPort = ctx.channel().localAddress().toString().split("/")[1];
+            heartBeat.setId(ipPort);
             while (true) {
                 try {
                     heartBeat.setLastHeartBeatTime(System.currentTimeMillis());

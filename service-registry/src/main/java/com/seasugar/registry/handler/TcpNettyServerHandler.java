@@ -19,6 +19,12 @@ public class TcpNettyServerHandler extends SimpleChannelInboundHandler<TcpMsg> {
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) {
+        String clientIpPort = ctx.channel().remoteAddress().toString().split("/")[1];
+        CommonCache.NODE_LIST.remove(clientIpPort);
+        System.out.println(clientIpPort + "主动下线");
+        for (String s : CommonCache.NODE_LIST.keySet()) {
+            System.out.print(s + " ");
+        }
     }
 
     @Override
