@@ -10,7 +10,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>kafka-service</module>
-        <module>spring</module>
+        <module>spring-demo</module>
     </modules>
 
     <properties>

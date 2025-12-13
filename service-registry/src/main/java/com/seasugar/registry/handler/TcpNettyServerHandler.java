@@ -11,6 +11,7 @@ import com.seasugar.registry.event.model.UnRegisterEvent;
 import com.seasugar.registry.ioc.CommonCache;
 import io.netty.channel.*;
 
+import java.net.SocketAddress;
 import java.util.Objects;
 
 @ChannelHandler.Sharable
@@ -41,6 +42,8 @@ public class TcpNettyServerHandler extends SimpleChannelInboundHandler<TcpMsg> {
         } else if (Objects.equals(code, EventEnum.UNREGISTER.getCode())) {
             event = JSON.parseObject(tcpMsg.getBody(), UnRegisterEvent.class);
         }
+//        EventEnum eventEnum = EventEnum.valueOf(EventEnum.HEART_BEAT.getName());
+//        System.out.println(eventEnum);
         EventBus.publish(event);
     }
 }
