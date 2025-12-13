@@ -1,1 +1,2 @@
 com.seasugar.registry.event.spi.listener.HeartBeatListener
+com.seasugar.registry.event.spi.listener.RegisterListener

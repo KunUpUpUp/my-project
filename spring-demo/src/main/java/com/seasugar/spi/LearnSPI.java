@@ -4,12 +4,15 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.util.Enumeration;
 
 public class LearnSPI {
     public static void main(String[] args) throws Exception {
-//        Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/test", "root", "root");
-//        System.out.println(connection);
+        Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/test", "root", "123456");
+        Connection connection1 = DriverManager.getConnection("jdbc:seasugar://127.0.0.1:3306/test", "root", "123456");
+        System.out.println(connection);
         // 查找所有匹配的资源，包括：
         // 1. 当前JAR中的资源
         // 2. 依赖JAR中的资源

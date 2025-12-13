@@ -18,7 +18,6 @@ import java.util.Objects;
 public class TcpNettyServerHandler extends SimpleChannelInboundHandler<TcpMsg> {
     @Override
     public void channelActive(ChannelHandlerContext ctx) {
-        System.out.println(ctx.channel().remoteAddress() + "已连接");
     }
 
     @Override
