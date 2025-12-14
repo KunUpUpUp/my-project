@@ -5,6 +5,6 @@ import lombok.Data;
 
 @Data
 public abstract class Event {
-    private long timeStamp;
+    private Long timeStamp;
     private ChannelHandlerContext ctx;
 }

@@ -1,7 +1,5 @@
 package com.seasugar.registry.utils;
 
-import com.seasugar.registry.coder.TcpMsg;
-import com.seasugar.registry.constants.RegistryConstants;
 import com.seasugar.registry.excetions.ExceptionEnum;
 
 public class AssertUtils {

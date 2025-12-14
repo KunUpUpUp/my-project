@@ -1,6 +1,6 @@
 package com.seasugar.registry.coder;
 
-import com.seasugar.registry.constants.RegistryConstants;
+import com.seasugar.registry.constants.TcpConstants;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
@@ -14,7 +14,7 @@ public class TcpMsgDecoder extends ByteToMessageDecoder {
     protected void decode(ChannelHandlerContext ctx, ByteBuf byteBuf, List<Object> in) throws Exception {
         // 如果出现粘包拆包，需要判断数据是否完整
         byte magicNum = byteBuf.readByte();
-        if (byteBuf.readableBytes() < HEADER_SIZE || magicNum != RegistryConstants.MAGIC) {
+        if (byteBuf.readableBytes() < HEADER_SIZE || magicNum != TcpConstants.MAGIC) {
             return;
         }
 
@@ -30,7 +30,7 @@ public class TcpMsgDecoder extends ByteToMessageDecoder {
         byte[] body = new byte[length];
         byteBuf.readBytes(body);
         TcpMsg tcpMsg = new TcpMsg();
-        tcpMsg.setMagic(RegistryConstants.MAGIC);
+        tcpMsg.setMagic(TcpConstants.MAGIC);
         tcpMsg.setCode(code);
         tcpMsg.setLength(length);
         tcpMsg.setBody(body);

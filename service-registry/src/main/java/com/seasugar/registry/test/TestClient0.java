@@ -11,7 +11,7 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 
-public class TestClient {
+public class TestClient0 {
     public static void main(String[] args) {
         EventLoopGroup group = new NioEventLoopGroup();
         try {
@@ -23,10 +23,9 @@ public class TestClient {
                         protected void initChannel(SocketChannel ch) {
                             ch.pipeline().addLast(new TcpMsgDecoder());
                             ch.pipeline().addLast(new TcpMsgEncoder());
-                            ch.pipeline().addLast(new TcpNettyClientHandler());
+                            ch.pipeline().addLast(new TcpNettyClientHandler(0));
                         }
                     });
-
             ChannelFuture future = bootstrap.connect("localhost", 8080).sync();
             future.channel().closeFuture().sync();
         } catch (InterruptedException e) {
