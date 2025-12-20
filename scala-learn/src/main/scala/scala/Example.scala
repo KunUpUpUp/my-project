@@ -1,4 +1,4 @@
-package base
+package scala
 
 object Example {
   def main(args: Array[String]): Unit = {
